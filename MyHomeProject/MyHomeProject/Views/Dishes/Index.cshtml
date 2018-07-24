@@ -1,0 +1,63 @@
+﻿
+@model MyHomeProject.Models.DishSectionViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<form asp-controller="Dishes" asp-action="Index" method="get">
+    <p>
+        <select asp-for="dishCategory" asp-items="Model.category">
+            <option value=" ">All</option>
+        </select>
+
+        Title: <input type="text" name="SearchString">
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.dishes[0].Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dishes[0].Recipe)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.dishes[0].Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model.dishes)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Recipe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.DishID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.DishID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.DishID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
